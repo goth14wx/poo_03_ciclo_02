@@ -18,15 +18,41 @@ public class Usuarios {
     public SimpleIntegerProperty id;
     public SimpleIntegerProperty isAdmin;
     public SimpleIntegerProperty isSeller;
-    public SimpleIntegerProperty admin;
-    public SimpleIntegerProperty seller;
+    public SimpleStringProperty admin;
+    public SimpleStringProperty seller;
 
-    public Usuarios(String name, String nickname, Integer id, Integer isAdmin, Integer isSeller) {
+    public String getAdmin() {
+        return admin.get();
+    }
+
+    public SimpleStringProperty adminProperty() {
+        return admin;
+    }
+
+    public void setAdmin(String admin) {
+        this.admin.set(admin);
+    }
+
+    public String getSeller() {
+        return seller.get();
+    }
+
+    public SimpleStringProperty sellerProperty() {
+        return seller;
+    }
+
+    public void setSeller(String seller) {
+        this.seller.set(seller);
+    }
+
+    public Usuarios(String name, String nickname, Integer id, Integer isAdmin, Integer isSeller, String seller, String admin) {
         this.name = new SimpleStringProperty(name);
         this.nickname = new SimpleStringProperty(nickname);
         this.id = new SimpleIntegerProperty(id);
         this.isAdmin = new SimpleIntegerProperty(isAdmin);
         this.isSeller = new SimpleIntegerProperty(isSeller);
+        this.seller = new SimpleStringProperty(seller);
+        this.admin = new SimpleStringProperty(admin);
     }
 
     public Usuarios() {
@@ -42,10 +68,10 @@ public class Usuarios {
             Statement Localstatement = Localconnection.createStatement();
             ResultSet resultado = Localstatement.executeQuery(
                     "SELECT name, "
-                            + "nickname, isAdmin,isSeller"
+                            + "id,nickname, isAdmin,isSeller,"
                             + "IF(isAdmin = 1,'Administrador','Vendedor') AS 'admin',"
                             + "IF(isSeller = 1,'Vendedor','Deshabilitado') AS 'seller'"
-                            + "FROM javaproductos"
+                            + "FROM users"
             );
             while (resultado.next()){
                 lista.add(
@@ -54,7 +80,9 @@ public class Usuarios {
                                 resultado.getString("nickname"),
                                 resultado.getInt("id"),
                                 resultado.getInt("isAdmin"),
-                                resultado.getInt("isSeller")
+                                resultado.getInt("isSeller"),
+                                resultado.getString("seller"),
+                                resultado.getString("admin")
                         )
                 );
             }
@@ -144,5 +172,41 @@ public class Usuarios {
 
     public void setIsSeller(int isSeller) {
         this.isSeller.set(isSeller);
+    }
+
+
+
+    public Usuarios agregarusaurio(Connection Localconnection,ObservableList<String> usuario) {
+        Usuarios usuarioNew = null;
+
+        try{
+            Statement Localstatement = Localconnection.createStatement();
+            System.out.println("INSERT INTO `users` ( `nickname`,`name`, `isAdmin`, `isSeller`)\n" +
+                    "VALUES ( '"+usuario.get(0)+"','"+usuario.get(1)+"', "+usuario.get(2)+", "+usuario.get(3)+");");
+            ResultSet resultado = Localstatement.executeQuery(
+                    "INSERT INTO `users` ( `nickname`,`name`, `isAdmin`, `isSeller`)\n" +
+                            "VALUES ( '"+usuario.get(0)+"','"+usuario.get(1)+"', "+usuario.get(2)+", "+usuario.get(3)+");"
+            );
+            resultado.last();
+            if (resultado.getRow()>0){
+                while (resultado.next()){
+                            usuarioNew= new Usuarios(
+                                    resultado.getString("name"),
+                                    resultado.getString("nickname"),
+                                    resultado.getInt("id"),
+                                    resultado.getInt("isAdmin"),
+                                    resultado.getInt("isSeller"),
+                                    resultado.getString("seller"),
+                                    resultado.getString("admin")
+                            );
+                }
+            }else{
+
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return usuarioNew;
     }
 }

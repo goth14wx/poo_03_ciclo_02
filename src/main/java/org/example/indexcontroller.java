@@ -1,12 +1,72 @@
 package org.example;
 
 import java.io.IOException;
-import javafx.fxml.FXML;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class indexcontroller {
+import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+
+public class indexcontroller implements Initializable {
+
+    @FXML
+    AnchorPane mainStage = new AnchorPane();
 
     @FXML
     private void switchToPrimary() throws IOException {
         App.setRoot("login");
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+    }
+
+    /**
+     * SYSTEM
+     * */
+
+    @FXML private HBox titleBar;
+
+    double x,y;
+
+    @FXML
+    void pressed(MouseEvent event){
+        x = event.getSceneX();
+        y=event.getSceneY();
+    }
+    @FXML
+    void dragged(MouseEvent  event){
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setX(event.getScreenX()-x);
+        stage.setY(event.getScreenY()-y);
+    }
+    @FXML
+    void close(MouseEvent event){
+        Stage stage = (Stage)  ((Node)  event.getSource()).getScene().getWindow();
+        stage.close();
+    }
+
+    @FXML
+    void min(MouseEvent event){
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setIconified(true);
+    }
+
+    @FXML
+    void showUsuariosStage() throws IOException {
+        System.out.println("mostrando usua");
+        StackPane usersAnchor = FXMLLoader.load(getClass().getResource("/org.users/users.table.fxml"));
+        this.mainStage.getChildren().setAll(usersAnchor);
     }
 }

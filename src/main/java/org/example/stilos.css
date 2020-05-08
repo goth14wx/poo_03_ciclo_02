@@ -928,3 +928,8 @@ VBox > .split-menu-button.last > .arrow-button {
 .slider:vertical .track {
     -fx-pref-width: 5;
 }
+
+
+.btnC:hover{
+    -fx-background-color: #28a745;
+}

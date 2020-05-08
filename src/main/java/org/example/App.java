@@ -17,10 +17,10 @@ public class App extends Application {
     private static Scene scene;
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("login"));
+        scene = new Scene(loadFXML("index"));
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setScene(scene);
-//        scene.getStylesheets().add(getClass().getResource("./org/example/stilos.css").toString());
+        //scene.getStylesheets().add(App.class.getResource("stilos.css").toString());
         stage.show();
     }
 
