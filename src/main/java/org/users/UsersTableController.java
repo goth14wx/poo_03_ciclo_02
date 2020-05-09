@@ -49,12 +49,20 @@ public class UsersTableController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         Conexion connection = new Conexion();
         connection.establecerConexion();
-    this.setTable();
-    Usuarios llenarTabla = new Usuarios();
-    Usuarios.llenarInformacion(connection.getConnection(),this.usuariosList);
-
+        this.setTable();
+        Usuarios llenarTabla = new Usuarios();
+        connection.establecerConexion();
+        new Thread(new Runnable() {
+            public void run(){
+                llenarTabla.llenarInformacion(connection.getConnection(),getUsuariosLista());
+            }
+        }).start();
         this.btnEdit.setDisable(true);
         this.btnDelete.setDisable(true);
+    }
+
+    ObservableList<Usuarios> getUsuariosLista(){
+        return this.usuariosList;
     }
 
 
@@ -64,7 +72,7 @@ public class UsersTableController implements Initializable {
         this.tcNickname.setCellValueFactory(nickname->nickname.getValue().nicknameProperty());
         this.tcAcceso.setCellValueFactory(new PropertyValueFactory<Usuarios,String>("admin"));
         this.tcTipo.setCellValueFactory(new PropertyValueFactory<Usuarios,String>("seller"));
-        this.usersTable.setItems(this.usuariosList);
+        this.usersTable.setItems(this.getUsuariosLista());
     }
 
     @FXML
@@ -89,13 +97,56 @@ public class UsersTableController implements Initializable {
 
     @FXML
     void agregarUsuario() throws IOException {
-        System.out.println("mostrar formulario");
         JFXDialogLayout content = new JFXDialogLayout();
-        AnchorPane Formulario = FXMLLoader.load(getClass().getResource("/org.users/UserForm.fxml"));
+        FXMLLoader Formulario = new FXMLLoader(getClass().getResource("/org.users/UserForm.fxml"));
         content.setHeading(new Text("Agregar Usuario"));
-        content.setBody(Formulario);
+        AnchorPane formularioAnchor = Formulario.load();
+        formUserController formularioController = Formulario.getController();
+        content.setBody(formularioAnchor);
         JFXDialog dialog=new JFXDialog(stackDialog, content, JFXDialog.DialogTransition.CENTER);
+
+        formularioController.btnAgregar.setOnMouseClicked(e->{
+            if (formularioController.seAgrego>0){ // se agrego
+                usuariosList.add(formularioController.returnUsuario());
+                formularioController.seAgrego=-1;
+                dialog.close();
+                content.setHeading(new Text("Usuario agregado"));
+                content.setBody(new Text("Se agrego correctamente!!"));
+                JFXDialog dialogAlert=new JFXDialog(stackDialog, content, JFXDialog.DialogTransition.CENTER);
+                dialogAlert.show();
+            }
+        });
+
         dialog.show();
+    }
+
+    @FXML
+    void EliminarUsuario(){
+        JFXDialogLayout content = new JFXDialogLayout();
+        Conexion connection = new Conexion();
+        connection.establecerConexion();
+        if (this.getUser>-1){
+            Usuarios eliminar = new Usuarios();
+            Integer seElimino =eliminar.eliminarUsuario(connection.getConnection(),this.usuariosList.get(this.getUser).getId());
+            if (seElimino>=0){
+                this.usuariosList.remove(this.usuariosList.get(getUser));
+                System.out.println(this.getUser);
+                System.out.println(this.usuariosList.size());
+                content.setHeading(new Text("usuario Eliminado"));
+                content.setBody(new Text("El usuario se ha eliminado correctamente"));
+                JFXDialog dialogAlert=new JFXDialog(stackDialog, content, JFXDialog.DialogTransition.CENTER);
+                this.getUser = -1;
+                dialogAlert.show();
+            }else{
+                content.setHeading(new Text("Error"));
+                content.setBody(new Text("Parece que no se pudo realizar la petición"));
+                JFXDialog dialogAlert=new JFXDialog(stackDialog, content, JFXDialog.DialogTransition.CENTER);
+                dialogAlert.show();
+            }
+
+
+        }
+
     }
 
 }

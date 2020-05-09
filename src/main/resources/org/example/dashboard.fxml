@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="481.0" prefWidth="644.0" style="-fx-background-color: linear-gradient(to right, #e52d27, #b31217);;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.DashboardController">
+
+</AnchorPane>

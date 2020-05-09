@@ -26,12 +26,14 @@ public class formUserController implements Initializable {
     @FXML
     JFXToggleButton seller = new JFXToggleButton();
 
+    Integer seAgrego=0;
+
 
     Usuarios  user;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-
+        this.seller.setSelected(true);
 
     }
 
@@ -60,9 +62,19 @@ public class formUserController implements Initializable {
             connection.establecerConexion();
 
             Usuarios agregarUsuario = new Usuarios();
-            user = agregarUsuario.agregarusaurio(connection.getConnection(),usuarioAagregar);
+            seAgrego = agregarUsuario.agregarusaurio(connection.getConnection(),usuarioAagregar); // Esta variable se leera en el controlador principal que esta llamando este formulario
+            user = new Usuarios(
+                usuarioAagregar.get(0),
+                usuarioAagregar.get(1),
+                seAgrego,
+                administrador,
+                sellerIs,
+                (sellerIs==1 ? "Vendedor" : "Deshabilitado"),
+                (administrador==1 ? "Administrador":"Normal")
+            );
         }
     }
+
 
     Usuarios returnUsuario(){
 

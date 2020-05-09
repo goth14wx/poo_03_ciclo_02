@@ -11,7 +11,7 @@
       <JFXTextField fx:id="nickname" layoutX="84.0" layoutY="128.0" prefHeight="25.0" prefWidth="206.0" />
       <Label layoutX="164.0" layoutY="101.0" text="Nickname" />
       <JFXToggleButton fx:id="admin" layoutX="115.0" layoutY="171.0" mnemonicParsing="false" text="Administrador" />
-      <JFXToggleButton fx:id="selller" layoutX="128.0" layoutY="229.0" mnemonicParsing="false" text="Vendedor" />
+      <JFXToggleButton fx:id="seller" layoutX="128.0" layoutY="229.0" mnemonicParsing="false" text="Vendedor" toggleColor="#3562ae" />
       <JFXButton fx:id="btnAgregar" layoutX="144.0" layoutY="298.0" mnemonicParsing="false" onAction="#agregarCliente" prefHeight="46.0" prefWidth="89.0" style="-fx-background-color: #28a745;" text="Agregar" textFill="WHITE" />
    </children>
 </AnchorPane>

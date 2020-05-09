@@ -29,6 +29,11 @@ public class indexcontroller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        try {
+            this.showDashboardStage();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -65,8 +70,21 @@ public class indexcontroller implements Initializable {
 
     @FXML
     void showUsuariosStage() throws IOException {
-        System.out.println("mostrando usua");
+        System.out.println("mostrando usuarios");
         StackPane usersAnchor = FXMLLoader.load(getClass().getResource("/org.users/users.table.fxml"));
         this.mainStage.getChildren().setAll(usersAnchor);
+    }
+
+    @FXML
+    void showDashboardStage() throws IOException {
+        System.out.println("mostrando dashboard");
+        try {
+
+            AnchorPane usersAnchor = FXMLLoader.load(getClass().getResource("/org/example/dashboard.fxml"));
+            this.mainStage.getChildren().setAll(usersAnchor);
+
+        }catch (Exception e){
+            throw e;
+        }
     }
 }

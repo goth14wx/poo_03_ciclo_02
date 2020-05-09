@@ -3,12 +3,8 @@ package org.modelos;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
-import org.Conexion;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class Usuarios {
 
@@ -20,6 +16,8 @@ public class Usuarios {
     public SimpleIntegerProperty isSeller;
     public SimpleStringProperty admin;
     public SimpleStringProperty seller;
+
+
 
     public String getAdmin() {
         return admin.get();
@@ -176,37 +174,37 @@ public class Usuarios {
 
 
 
-    public Usuarios agregarusaurio(Connection Localconnection,ObservableList<String> usuario) {
-        Usuarios usuarioNew = null;
-
+    public Integer agregarusaurio(Connection Localconnection, ObservableList<String> usuario) {
+        Integer id = -1;
         try{
-            Statement Localstatement = Localconnection.createStatement();
-            System.out.println("INSERT INTO `users` ( `nickname`,`name`, `isAdmin`, `isSeller`)\n" +
-                    "VALUES ( '"+usuario.get(0)+"','"+usuario.get(1)+"', "+usuario.get(2)+", "+usuario.get(3)+");");
-            ResultSet resultado = Localstatement.executeQuery(
-                    "INSERT INTO `users` ( `nickname`,`name`, `isAdmin`, `isSeller`)\n" +
-                            "VALUES ( '"+usuario.get(0)+"','"+usuario.get(1)+"', "+usuario.get(2)+", "+usuario.get(3)+");"
-            );
-            resultado.last();
-            if (resultado.getRow()>0){
-                while (resultado.next()){
-                            usuarioNew= new Usuarios(
-                                    resultado.getString("name"),
-                                    resultado.getString("nickname"),
-                                    resultado.getInt("id"),
-                                    resultado.getInt("isAdmin"),
-                                    resultado.getInt("isSeller"),
-                                    resultado.getString("seller"),
-                                    resultado.getString("admin")
-                            );
-                }
-            }else{
-
+            String querySQL = "INSERT INTO `users` ( `nickname`,`name`, `isAdmin`, `isSeller`)\n" +
+                    "VALUES ( '"+usuario.get(0)+"','"+usuario.get(1)+"', "+usuario.get(2)+", "+usuario.get(3)+");";
+            //System.out.println(querySQL);
+            PreparedStatement Localstatement = Localconnection.prepareStatement(querySQL,Statement.RETURN_GENERATED_KEYS);
+            int affectedRows = Localstatement.executeUpdate();
+            ResultSet generatedKeys = Localstatement.getGeneratedKeys();
+            if(generatedKeys.next()){
+                id= generatedKeys.getInt(1);
             }
         }catch (Exception e){
-            e.printStackTrace();
+            id= -2;
         }
+        return id;
+    }
 
-        return usuarioNew;
+    public Integer eliminarUsuario(Connection Localconnection,Integer id){
+        Integer idS = -1;
+        try{
+            String querySQL = "DELETE FROM users where id = "+id;
+            //System.out.println(querySQL);
+            PreparedStatement Localstatement = Localconnection.prepareStatement(querySQL,Statement.RETURN_GENERATED_KEYS);
+            int affectedRows = Localstatement.executeUpdate();
+            if(affectedRows>=0){
+                idS=1;
+            }
+        }catch (Exception e){
+            id= -2;
+        }
+        return idS;
     }
 }
