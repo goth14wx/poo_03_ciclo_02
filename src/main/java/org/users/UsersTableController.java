@@ -95,6 +95,11 @@ public class UsersTableController implements Initializable {
         }
     }
 
+    void setButtons(Boolean tipe){
+        this.btnEdit.setDisable(tipe);
+        this.btnDelete.setDisable(tipe);
+    }
+
     @FXML
     void agregarUsuario() throws IOException {
         JFXDialogLayout content = new JFXDialogLayout();
@@ -146,7 +151,56 @@ public class UsersTableController implements Initializable {
 
 
         }
+        this.setButtons(false);
+    }
 
+    @FXML
+    void editUsuario() throws IOException {
+
+        if (this.getUser>-1){
+
+            JFXDialogLayout content = new JFXDialogLayout();
+            FXMLLoader Formulario = new FXMLLoader(getClass().getResource("/org.users/UserForm.fxml"));
+            content.setHeading(new Text("Editar Usuario"));
+            AnchorPane formularioAnchor = Formulario.load();
+            formUserController formularioController = Formulario.getController();
+            content.setBody(formularioAnchor);
+            formularioController.name.setText(this.usuariosList.get(getUser).getName());
+            formularioController.nickname.setText(this.usuariosList.get(getUser).getNickname());
+            formularioController.admin.setSelected((this.usuariosList.get(getUser).getIsAdmin()==1 ? true : false));
+            formularioController.seller.setSelected((this.usuariosList.get(getUser).getIsSeller()==1 ? true : false));
+            formularioController.idlbl.setText("usuario id:"+this.usuariosList.get(getUser).getId());
+            formularioController.id = this.usuariosList.get(getUser).getId();
+            JFXDialog dialog=new JFXDialog(stackDialog, content, JFXDialog.DialogTransition.CENTER);
+            dialog.show();
+
+            formularioController.btnAgregar.setOnMouseClicked(e->{
+
+                if (formularioController.seActualizo){ // se actualizo
+                    usuariosList.get(this.getUser).setName(formularioController.returnUsuario().getName());
+                    usuariosList.get(this.getUser).setNickname(formularioController.returnUsuario().getNickname());
+                    usuariosList.get(this.getUser).setId(formularioController.returnUsuario().getId());
+                    usuariosList.get(this.getUser).setAdmin(formularioController.returnUsuario().getAdmin());
+                    usuariosList.get(this.getUser).setIsAdmin(formularioController.returnUsuario().getIsAdmin());
+                    usuariosList.get(this.getUser).setSeller(formularioController.returnUsuario().getSeller());
+                    usuariosList.get(this.getUser).setIsSeller(formularioController.returnUsuario().getIsSeller());
+
+                    formularioController.seAgrego=-1;
+                    formularioController.seActualizo=false;
+                    dialog.close();
+                    content.setHeading(new Text("Usuario Actualizado"));
+                    content.setBody(new Text("el Usuario "+usuariosList.get(this.getUser).getName()+" se " +
+                            "ha actualizado correctamente!!"));
+                    JFXDialog dialogAlert=new JFXDialog(stackDialog, content, JFXDialog.DialogTransition.CENTER);
+                    dialogAlert.show();
+
+                }
+
+            });
+
+        }
+
+        this.setButtons(false);
     }
 
 }

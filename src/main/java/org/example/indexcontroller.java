@@ -4,9 +4,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.jfoenix.controls.JFXDrawer;
-import com.jfoenix.controls.JFXHamburger;
-import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import animatefx.animation.BounceIn;
+import animatefx.animation.FadeInLeft;
+import animatefx.animation.FadeInRight;
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -73,6 +74,7 @@ public class indexcontroller implements Initializable {
         System.out.println("mostrando usuarios");
         StackPane usersAnchor = FXMLLoader.load(getClass().getResource("/org.users/users.table.fxml"));
         this.mainStage.getChildren().setAll(usersAnchor);
+        new FadeInRight(this.mainStage).play();
     }
 
     @FXML
@@ -82,7 +84,7 @@ public class indexcontroller implements Initializable {
 
             AnchorPane usersAnchor = FXMLLoader.load(getClass().getResource("/org/example/dashboard.fxml"));
             this.mainStage.getChildren().setAll(usersAnchor);
-
+            new FadeInRight(this.mainStage).play();
         }catch (Exception e){
             throw e;
         }

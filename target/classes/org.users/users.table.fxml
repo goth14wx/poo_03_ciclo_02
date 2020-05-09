@@ -25,7 +25,7 @@
                   <Font size="39.0" />
                </font>
             </Label>
-            <JFXButton fx:id="btnEdit" layoutX="310.0" layoutY="69.0" onAction="#deleteUsuario" prefHeight="44.0" prefWidth="87.0" style="-fx-background-color: #ffc107;" text="Editar" textFill="WHITE" />
+            <JFXButton fx:id="btnEdit" layoutX="310.0" layoutY="69.0" onAction="#editUsuario" prefHeight="44.0" prefWidth="87.0" style="-fx-background-color: #ffc107;" text="Editar" textFill="WHITE" />
          </children>
       </AnchorPane>
    </children>

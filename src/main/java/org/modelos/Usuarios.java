@@ -177,7 +177,7 @@ public class Usuarios {
     public Integer agregarusaurio(Connection Localconnection, ObservableList<String> usuario) {
         Integer id = -1;
         try{
-            String querySQL = "INSERT INTO `users` ( `nickname`,`name`, `isAdmin`, `isSeller`)\n" +
+            String querySQL = "INSERT INTO `users` ( `nickname`,`name`, `isAdmin`, `isSeller`)" +
                     "VALUES ( '"+usuario.get(0)+"','"+usuario.get(1)+"', "+usuario.get(2)+", "+usuario.get(3)+");";
             //System.out.println(querySQL);
             PreparedStatement Localstatement = Localconnection.prepareStatement(querySQL,Statement.RETURN_GENERATED_KEYS);
@@ -206,5 +206,28 @@ public class Usuarios {
             id= -2;
         }
         return idS;
+    }
+
+    public boolean editarUsuario(Connection connection, ObservableList<String> usuario) throws SQLException {
+      Boolean returnThis = false;
+        try{
+            String querySQL = "UPDATE `users` SET " +
+                    "`nickname` = ?," +
+                    "    `name` = ?," +
+                    " `isAdmin` = ?," +
+                    "`isSeller` = ? where id = "+usuario.get(4);
+            //System.out.println(querySQL);
+            PreparedStatement Localstatement = connection.prepareStatement(querySQL,Statement.RETURN_GENERATED_KEYS);
+            Localstatement.setString(1,usuario.get(1));
+            Localstatement.setString(2,usuario.get(0));
+            Localstatement.setString(3,usuario.get(2));
+            Localstatement.setString(4,usuario.get(3));
+            Localstatement.executeUpdate();
+            returnThis = true;
+        }catch (Exception e){
+            throw  e;
+            //returnThis = false;
+        }
+        return  returnThis;
     }
 }
