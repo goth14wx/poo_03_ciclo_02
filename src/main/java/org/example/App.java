@@ -17,7 +17,7 @@ public class App extends Application {
     private static Scene scene;
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("index"));
+        scene = new Scene(loadFXML("login"));
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setScene(scene);
         //scene.getStylesheets().add(App.class.getResource("stilos.css").toString());
