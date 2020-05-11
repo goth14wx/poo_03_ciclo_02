@@ -89,4 +89,16 @@ public class indexcontroller implements Initializable {
             throw e;
         }
     }
+
+    @FXML
+    void showProveedoresStage() throws IOException {
+        System.out.println("mostrando proveedores");
+        try {
+            StackPane usersAnchor = FXMLLoader.load(getClass().getResource("/org.proveedores/proveedores.fxml"));
+            this.mainStage.getChildren().setAll(usersAnchor);
+            new FadeInRight(this.mainStage).play();
+        }catch (Exception e){
+            throw e;
+        }
+    }
 }

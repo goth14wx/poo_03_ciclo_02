@@ -36,6 +36,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <JFXButton onAction="#showDashboardStage" prefHeight="184.0" prefWidth="218.0" text="Dashboard" textFill="WHITE">
@@ -62,7 +63,7 @@
                         <Glow />
                      </effect>
                   </JFXButton>
-                  <JFXButton layoutX="10.0" layoutY="251.0" prefHeight="69.0" prefWidth="206.0" text="Ventas" textFill="WHITE" GridPane.rowIndex="4">
+                  <JFXButton layoutX="10.0" layoutY="251.0" prefHeight="95.0" prefWidth="206.0" text="Ventas" textFill="WHITE" GridPane.rowIndex="4">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -70,7 +71,15 @@
                         <Glow />
                      </effect>
                   </JFXButton>
-                  <JFXButton layoutX="10.0" layoutY="200.0" prefHeight="185.0" prefWidth="274.0" text="Proveedores" textFill="WHITE" GridPane.rowIndex="3">
+                  <JFXButton layoutX="10.0" layoutY="200.0" onAction="#showProveedoresStage" prefHeight="185.0" prefWidth="274.0" text="Proveedores" textFill="WHITE" GridPane.rowIndex="3">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <effect>
+                        <Glow />
+                     </effect>
+                  </JFXButton>
+                  <JFXButton layoutX="10.0" layoutY="322.0" prefHeight="95.0" prefWidth="206.0" text="Yo" textFill="WHITE" GridPane.rowIndex="5">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

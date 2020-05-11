@@ -54,6 +54,7 @@ public class UsersTableController implements Initializable {
         connection.establecerConexion();
         new Thread(new Runnable() {
             public void run(){
+
                 llenarTabla.llenarInformacion(connection.getConnection(),getUsuariosLista());
             }
         }).start();
@@ -68,6 +69,9 @@ public class UsersTableController implements Initializable {
 
     public void setTable(){
         this.tcId.setCellValueFactory(new PropertyValueFactory<Usuarios,String>("id"));
+        /**
+         * LAMNDA x
+         * */
         this.tcNombre.setCellValueFactory(nombre->nombre.getValue().nameProperty());
         this.tcNickname.setCellValueFactory(nickname->nickname.getValue().nicknameProperty());
         this.tcAcceso.setCellValueFactory(new PropertyValueFactory<Usuarios,String>("admin"));
@@ -135,8 +139,8 @@ public class UsersTableController implements Initializable {
             Integer seElimino =eliminar.eliminarUsuario(connection.getConnection(),this.usuariosList.get(this.getUser).getId());
             if (seElimino>=0){
                 this.usuariosList.remove(this.usuariosList.get(getUser));
-                System.out.println(this.getUser);
-                System.out.println(this.usuariosList.size());
+                //System.out.println(this.getUser);
+                //System.out.println(this.usuariosList.size());
                 content.setHeading(new Text("usuario Eliminado"));
                 content.setBody(new Text("El usuario se ha eliminado correctamente"));
                 JFXDialog dialogAlert=new JFXDialog(stackDialog, content, JFXDialog.DialogTransition.CENTER);

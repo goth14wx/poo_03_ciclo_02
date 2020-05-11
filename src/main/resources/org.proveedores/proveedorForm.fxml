@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="358.0" prefWidth="374.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.proveedores.formProveedorController">
+   <children>
+      <JFXTextField fx:id="name" layoutX="84.0" layoutY="87.0" prefHeight="25.0" prefWidth="206.0" />
+      <Label layoutX="164.0" layoutY="60.0" text="Nombre:" />
+      <Label layoutX="163.0" layoutY="132.0" text="Descripción" />
+      <JFXButton fx:id="btnAgregar" layoutX="144.0" layoutY="312.0" mnemonicParsing="false" onAction="#agregarProveedor" prefHeight="46.0" prefWidth="89.0" style="-fx-background-color: #28a745;" text="Agregar" textFill="WHITE" />
+      <Label fx:id="idlbl" layoutX="163.0" layoutY="24.0" text="." />
+      <JFXTextArea fx:id="desc" layoutX="91.0" layoutY="149.0" prefHeight="91.0" prefWidth="206.0" />
+   </children>
+</AnchorPane>

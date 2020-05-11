@@ -4,8 +4,8 @@ use javaproductos;
 -- CREATE TABLE IF NOT EXISTS "suppliers" ------------------------------------
 CREATE TABLE `suppliers`( 
 	`name` VarChar( 255 ) NOT NULL,
-	`desc` VarChar( 255 ) NOT NULL,
-	`id` VarChar( 255 ) NOT NULL,
+	`desc` VarChar( 255 ) NULL,
+	`id` Int( 255 ) AUTO_INCREMENT NOT NULL,
 	PRIMARY KEY ( `id` ),
 	CONSTRAINT `unique_id` UNIQUE( `id` ) )
 ENGINE = InnoDB;
