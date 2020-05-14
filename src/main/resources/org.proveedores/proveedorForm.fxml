@@ -8,9 +8,9 @@
    <children>
       <JFXTextField fx:id="name" layoutX="84.0" layoutY="87.0" prefHeight="25.0" prefWidth="206.0" />
       <Label layoutX="164.0" layoutY="60.0" text="Nombre:" />
-      <Label layoutX="163.0" layoutY="132.0" text="Descripción" />
+      <Label layoutX="163.0" layoutY="132.0" text="Descripción:" />
       <JFXButton fx:id="btnAgregar" layoutX="144.0" layoutY="312.0" mnemonicParsing="false" onAction="#agregarProveedor" prefHeight="46.0" prefWidth="89.0" style="-fx-background-color: #28a745;" text="Agregar" textFill="WHITE" />
-      <Label fx:id="idlbl" layoutX="163.0" layoutY="24.0" text="." />
-      <JFXTextArea fx:id="desc" layoutX="91.0" layoutY="149.0" prefHeight="91.0" prefWidth="206.0" />
+      <Label fx:id="idlbl" alignment="CENTER" contentDisplay="CENTER" layoutX="110.0" layoutY="29.0" prefHeight="17.0" prefWidth="172.0" text="sdsd" textAlignment="CENTER" />
+      <JFXTextArea fx:id="desc" layoutX="86.0" layoutY="179.0" prefHeight="64.0" prefWidth="206.0" />
    </children>
 </AnchorPane>

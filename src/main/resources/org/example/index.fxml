@@ -55,7 +55,7 @@
                         <Glow />
                      </effect>
                   </JFXButton>
-                  <JFXButton prefHeight="185.0" prefWidth="274.0" text="Productos" textFill="WHITE" GridPane.rowIndex="2">
+                  <JFXButton onAction="#showProductsStage" prefHeight="185.0" prefWidth="274.0" text="Productos" textFill="WHITE" GridPane.rowIndex="2">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

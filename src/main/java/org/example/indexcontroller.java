@@ -101,4 +101,16 @@ public class indexcontroller implements Initializable {
             throw e;
         }
     }
+
+    @FXML
+    void showProductsStage() throws IOException {
+        System.out.println("mostrando productos");
+        try {
+            StackPane usersAnchor = FXMLLoader.load(getClass().getResource("/org.products/productos.fxml"));
+            this.mainStage.getChildren().setAll(usersAnchor);
+            new FadeInRight(this.mainStage).play();
+        }catch (Exception e){
+            throw e;
+        }
+    }
 }

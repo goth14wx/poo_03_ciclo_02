@@ -11,6 +11,12 @@ CREATE TABLE `suppliers`(
 ENGINE = InnoDB;
 -- -------------------------------------------------------------
 
+INSERT INTO `suppliers` ( `name`, `desc`)
+VALUES ( 'Diana', 'Producto salvadoreño' ),
+( 'Yummi', 'Producto salvadoreño' ),
+( 'Dilacsa', 'Producto salvadoreño de lacteos' ),
+( 'Lacteos Metapanecos', 'Producto salvadoreño de lacteos de Metapan, Santa Ana' );
+
 -- CREATE TABLE IF NOT EXISTS "users" ----------------------------------------
 CREATE TABLE `users`(
 	`nickname` VarChar( 255 ) NOT NULL,
@@ -31,66 +37,66 @@ VALUES ( 'raul','Raul Humberto Peñate', 1, 1);
 
 -- CREATE TABLE IF NOT EXISTS "products" -------------------------------------
 CREATE TABLE `products`( 
-	`id` Int( 255 ) NOT NULL,
+	`id` Int( 255 ) AUTO_INCREMENT NOT NULL,
 	`name` VarChar( 255 ) NOT NULL,
 	`descripcion` LongText NULL,
 	`precio` Double NOT NULL,
-	`prom` Int( 255 ) NULL DEFAULT 2,
+	`prom` Int( 2 ) NULL DEFAULT 2,
 	PRIMARY KEY ( `id` ),
 	CONSTRAINT `unique_id` UNIQUE( `id` ) )
 ENGINE = InnoDB;
 -- -------------------------------------------------------------
 
+INSERT INTO `products` ( `name`, `descripcion`, `precio`, `prom`)
+VALUES ( 'Ranchitas', 'Bocadillo', 10.0, false ),
+( 'Buenachos', 'Bocadillo', 10.0, false ),
+( 'Queso Duro/blando', 'derivados de la leche', 0.50, false );
 
 -- CREATE TABLE IF NOT EXISTS "supplier_product" -----------------------------
 CREATE TABLE `supplier_product`( 
-	`id` Int( 255 ) NOT NULL,
+	`id` Int( 255 ) AUTO_INCREMENT NOT NULL,
 	`users_id` Int( 255 ) NOT NULL,
-	`products_id` Int( 255 ) NOT NULL,
 	`created_at` Timestamp NULL,
-	`suppliers_id` VarChar( 255 ) NOT NULL,
-	`stock` BigInt( 255 ) NULL DEFAULT 1,
+	`products_id` Int (255) NOT NULL,
+	`suppliers_id` Int (255) NOT NULL,
+	`stock` Int ( 255 ) NULL DEFAULT 1,
+  CONSTRAINT `fk_supplier`
+    FOREIGN KEY (suppliers_id) REFERENCES suppliers (id),
+  CONSTRAINT `fk_product`
+    FOREIGN KEY (products_id) REFERENCES products (id),
 	PRIMARY KEY ( `id` ) )
 ENGINE = InnoDB;
--- -------------------------------------------------------------
 
--- CREATE INDEX "index_products_id" ----------------------------
-CREATE INDEX `index_products_id` ON `supplier_product`( `products_id` );
--- -------------------------------------------------------------
 
--- CREATE INDEX "index_suppliers_id" ---------------------------
-CREATE INDEX `index_suppliers_id` ON `supplier_product`( `suppliers_id` );
--- -------------------------------------------------------------
-
+INSERT INTO `supplier_product` ( `users_id`, `created_at`, `products_id`, `suppliers_id`, `stock`)
+VALUES ( 1, '', 3, 3, 2 ),( 1, '', 3, 3, 12 );
 
 -- CREATE TABLE IF NOT EXISTS "sales" ----------------------------------------
-CREATE TABLE `sales`( 
-	`id` Int( 255 ) NOT NULL,
+CREATE TABLE `sales`(
+	`id` Int( 255 ) AUTO_INCREMENT NOT NULL,
 	`total` Double NOT NULL,
 	`users_id` Int( 255 ) NOT NULL,
+    `descripcion` VARCHAR(255) NULL,
+  CONSTRAINT `fk_users`
+    FOREIGN KEY (users_id) REFERENCES users (id),
 	PRIMARY KEY ( `id` ),
 	CONSTRAINT `unique_id` UNIQUE( `id` ) )
 ENGINE = InnoDB;
 -- -------------------------------------------------------------
 
--- CREATE INDEX "index_users_id" -------------------------------
-CREATE INDEX `index_users_id` ON `sales`( `users_id` );
--- -------------------------------------------------------------
 
 -- CREATE TABLE IF NOT EXISTS "sales_products" -------------------------------
-CREATE TABLE `sales_products`( 
-	`id` Int( 255 ) NOT NULL,
+CREATE TABLE `sales_products`(
+	`id` Int( 255 ) AUTO_INCREMENT NOT NULL,
 	`cant` Int( 255 ) NOT NULL,
 	`sales_id` Int( 255 ) NOT NULL,
-	`supplier_product_id` Int( 255 ) NOT NULL,
+	`product_products_id` Int(255) NOT NULL,
+  CONSTRAINT `fk_sales`
+    FOREIGN KEY (sales_id) REFERENCES sales (id),
+  CONSTRAINT `fk_suppliers_products`
+    FOREIGN KEY (product_products_id) REFERENCES supplier_product (id),
 	PRIMARY KEY ( `id` ) )
 ENGINE = InnoDB;
 -- -------------------------------------------------------------
 
--- CREATE INDEX "index_sales_id" -------------------------------
-CREATE INDEX `index_sales_id` ON `sales_products`( `sales_id` );
--- -------------------------------------------------------------
 
-
--- CREATE INDEX "index_supplier_product_id" --------------------
-CREATE INDEX `index_supplier_product_id` ON `sales_products`( `supplier_product_id` );

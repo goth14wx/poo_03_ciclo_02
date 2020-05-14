@@ -160,13 +160,13 @@ public class proveedoresController implements Initializable {
 
             JFXDialogLayout content = new JFXDialogLayout();
             FXMLLoader Formulario = new FXMLLoader(getClass().getResource("/org.proveedores/proveedorForm.fxml"));
-            content.setHeading(new Text("Editar Usuario"));
+            content.setHeading(new Text("Editar Proveedor"));
             AnchorPane formularioAnchor = Formulario.load(); // PRIMERO DEBE DE CARGARSE EL FORMULARIO
             formProveedorController formularioController = Formulario.getController(); // PARA DESPUES TOMAR EL CONTROLADOR
             content.setBody(formularioAnchor);
             formularioController.name.setText(this.proveedoresList.get(getUser).getNombre());
             formularioController.desc.setText(this.proveedoresList.get(getUser).getDescripcion());
-            formularioController.idlbl.setText("usuario id:"+this.proveedoresList.get(getUser).getId());
+            formularioController.idlbl.setText("Proveedor id:"+this.proveedoresList.get(getUser).getId());
             formularioController.id = Integer.parseInt(this.proveedoresList.get(getUser).getId());
             JFXDialog dialog=new JFXDialog(stackDialog, content, JFXDialog.DialogTransition.CENTER);
             dialog.show();
