@@ -1,5 +1,6 @@
-package org.proveedores;
+package org.products;
 
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
@@ -9,16 +10,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
 import org.Conexion;
-import org.modelos.Usuarios;
+import org.modelos.product;
 import org.modelos.proveedores;
 
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class formProveedorController implements Initializable {
-
+public class ProductsForm implements Initializable {
 
     public int id = 0;
     @FXML
@@ -26,23 +27,23 @@ public class formProveedorController implements Initializable {
     @FXML
     public Button btnAgregar = new Button();
     @FXML
-    public JFXTextArea desc = new JFXTextArea();
+    public JFXTextField txtDesc = new JFXTextField();
     @FXML
-    public JFXTextField name = new JFXTextField();
+    public JFXTextField txtName = new JFXTextField();
     @FXML
-    public JFXToggleButton admin = new JFXToggleButton();
+    public Spinner<Double> spPrecio = new Spinner<Double>();
     @FXML
-    public JFXToggleButton seller = new JFXToggleButton();
+    public Spinner<Integer> spStock = new Spinner<Integer>();
+    @FXML
+    public JFXComboBox<proveedores> cbProveedor;
 
     Integer seAgrego=0;
     Boolean seActualizo = false;
 
 
-    proveedores proveedor;
+    org.modelos.product product;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-        this.seller.setSelected(true);
 
     }
 
@@ -50,10 +51,10 @@ public class formProveedorController implements Initializable {
     @FXML
     void agregarProveedor() throws SQLException {
 
-        if (!this.name.getText().equals("") && !this.desc.getText().equals("")){
+        if (!this.txtName.getText().equals("") && !this.txtDesc.getText().equals("")){
             System.out.println("Agregando");
             ObservableList<String> proveedorAgregar = FXCollections.observableArrayList();
-            proveedorAgregar.setAll(this.name.getText(),this.desc.getText());
+            proveedorAgregar.setAll(this.txtName.getText(),this.txtDesc.getText());
             Conexion connection = new Conexion();
             connection.establecerConexion();
             proveedores agregarProveedor = new proveedores();
@@ -66,18 +67,18 @@ public class formProveedorController implements Initializable {
                 proveedorAgregar.add(this.id+"");
                 seActualizo= agregarProveedor.editarProveedor(connection.getConnection(),proveedorAgregar);
             }
-            proveedor = new proveedores(
+           /* product = new product(
                     (seAgrego > 0 ? seAgrego.toString() : id+"" ),
                     proveedorAgregar.get(0),
                     proveedorAgregar.get(1)
-            );
+            );*/
         }
     }
 
 
-    public proveedores returnProveedor(){
+    public product returnProduct(){
 
-        return proveedor;
+        return product;
 
     }
 

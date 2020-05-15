@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="358.0" prefWidth="374.0" xmlns="http://javafx.com/javafx/10.0.2-internal"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.products.ProductsForm">
+   <children>
+      <JFXTextField fx:id="txtName" layoutX="129.0" layoutY="87.0" prefHeight="25.0" prefWidth="172.0" />
+      <Label layoutX="63.0" layoutY="91.0" text="Nombre:" />
+      <Label layoutX="63.0" layoutY="135.0" text="Descripción:" />
+      <JFXButton fx:id="btnAgregar" layoutX="144.0" layoutY="312.0" mnemonicParsing="false" onAction="#agregarProveedor" prefHeight="46.0" prefWidth="89.0" style="-fx-background-color: #28a745;" text="Agregar" textFill="WHITE" />
+      <Label fx:id="idlbl" alignment="CENTER" contentDisplay="CENTER" layoutX="110.0" layoutY="29.0" prefHeight="17.0" prefWidth="172.0" text="." textAlignment="CENTER" />
+      <JFXTextField fx:id="txtDesc" layoutX="144.0" layoutY="131.0" prefHeight="25.0" prefWidth="161.0" />
+      <Label layoutX="68.0" layoutY="183.0" text="Precio:" />
+      <Spinner fx:id="spPrecio" editable="true" layoutX="152.0" layoutY="179.0" prefHeight="25.0" prefWidth="154.0" />
+      <Label layoutX="70.0" layoutY="216.0" text="Stock:" />
+      <Spinner fx:id="spStock" editable="true" layoutX="154.0" layoutY="212.0" prefHeight="25.0" prefWidth="154.0" />
+      <Label layoutX="73.0" layoutY="254.0" text="Proveedor:" />
+      <JFXComboBox layoutX="144.0" layoutY="250.0" prefHeight="25.0" prefWidth="161.0" />
+   </children>
+</AnchorPane>
